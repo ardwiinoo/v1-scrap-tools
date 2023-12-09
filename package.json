@@ -1,0 +1,25 @@
+{
+  "name": "v1-scrap-tools",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./src/index.js",
+    "dev": "nodemon ./src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ardwiinoo/v1-scrap-tools.git"
+  },
+  "keywords": [],
+  "author": "ardwiinoo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ardwiinoo/v1-scrap-tools/issues"
+  },
+  "homepage": "https://github.com/ardwiinoo/v1-scrap-tools#readme",
+  "dependencies": {
+    "puppeteer": "^21.6.0"
+  }
+}
