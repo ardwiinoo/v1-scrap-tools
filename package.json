@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/ardwiinoo/v1-scrap-tools#readme",
   "dependencies": {
+    "csv-writer": "^1.6.0",
     "puppeteer": "^21.6.0"
   }
 }
