@@ -5,7 +5,11 @@ async function scrapeComments(url) {
   const page = await browser.newPage();
   await page.setViewport({ width: 1280, height: 800 });
 
-  await page.evaluateOnNewDocument(async () => {
+  const navigationPromise = page.waitForNavigation();
+  await page.goto(url);
+  await page.waitForSelector("#title > h1 > .style-scope");
+
+  await page.evaluate(async () => {
     await new Promise((resolve) => {
       let totalHeight = 0;
       const distance = 100;
@@ -15,7 +19,7 @@ async function scrapeComments(url) {
         totalHeight += distance;
 
         const replyButtons = document.querySelectorAll(
-          "ytd-button-renderer#more-replies, ytd-button-renderer.style-scope.ytd-continuation-item-renderer"
+          "ytd-button-renderer#more-replies"
         );
         replyButtons.forEach(async (button) => {
           button.click();
@@ -26,17 +30,13 @@ async function scrapeComments(url) {
           clearInterval(timer);
           resolve();
         }
-      }, 200);
+      }, 100);
     });
   });
 
-  const navigationPromise = page.waitForNavigation();
-  await page.goto(url);
-  await page.waitForSelector("#title > h1 > .style-scope");
-  await navigationPromise;
-
   await page.waitForTimeout(5000);
   await page.waitForSelector("#comments");
+  await navigationPromise;
 
   const commentData = await page.$$eval("#content-text", (elements) => {
     return elements.map((element) => {
